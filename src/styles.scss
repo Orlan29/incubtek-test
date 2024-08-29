@@ -1,0 +1,155 @@
+@use '@angular/material' as mat;
+@import "./assets/scss/variables";
+
+@include mat.core();
+
+$primary: mat.define-palette($primary-palette, 800);
+$accent: mat.define-palette($accent-palette, 800);
+
+$warn: mat.define-palette(mat.$red-palette);
+
+$theme-light: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+  typography: mat.define-typography-config(),
+));
+
+@include mat.all-component-themes($theme-light);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --mp-primary-color-rgb: 203, 124, 75;
+  --mp-primary-color-hex: #cb7c4b;
+  --mp-accent-color-rgb: 19, 116, 191;
+  --mp-accent-color-hex: #1374bf;
+  --mp-warn-color-rgb: 244, 67, 54;
+  --mp-warn-color-hex: #f15248;
+  --mp-label-text-color-rgb: black;
+  --mp-sidebar-bg-rgb: 240, 240, 240;
+  --mp-font-size-default: 1.125rem;
+  --mp-btn-border-radius: .6rem;
+  --mp-sidebar-width: 260px;
+  --mdc-dialog-container-shape: 10px;
+}
+
+// -> Fonts definition
+@font-face {
+  font-family: "Raleway";
+  src: url("./assets/fonts/Raleway-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("./assets/fonts/Raleway-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("./assets/fonts/Raleway-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("./assets/fonts/Raleway-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+// -> Lilita One Normal
+@font-face {
+  font-family: "Lilita One";
+  src: url("./assets/fonts/LilitaOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+// Tailwindcss Forms Customization
+@layer  components {
+  .form-checkbox,
+  .form-radio {
+    @apply text-primary border border-gray-200 focus:border-primary focus:ring-primary;
+  }
+
+  .form-switch {
+    @apply text-primary border border-gray-200 focus:border-primary peer-focus:ring-4 peer-focus:ring-primary;
+  }
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  @apply font-rale #{'!important'};
+  font-size: var(--mp-font-size-default);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-lilita_one;
+  font-size: inherit;
+}
+
+.text-title {
+  @apply font-lilita_one text-2xl;
+}
+
+.text-title-2xl {
+  @apply font-lilita_one text-4xl;
+}
+
+.small-text {
+  @apply font-rale text-sm;
+}
+
+// mdc datepicker customization
+.mat-calendar-body-selected {
+  background-color: var(--mp-accent-color-hex);
+  color: white;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  background-color: rgba(var(--mp-accent-color-rgb), 0.3);
+}
+
+// dialog customization
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: var(--mp-dialog-border-radius);
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-shape: 18px !important;
+}
+
+// snackbar mdc custom design
+
+.mat-mdc-snack-bar-container {
+  &.update-success-snackbar {
+    --mdc-snackbar-container-color: var(--mp-accent-color-hex);
+    --mat-mdc-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+
+  &.update-failure-snackbar {
+    --mdc-snackbar-container-color: var(--mp-warn-color-hex);
+    --mat-mdc-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,22 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: var(--mp-sidebar-width);
+  background-color: rgb(var(--mp-sidebar-bg-rgb));
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.top-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.active-link {
+  @apply bg-primary text-white;
+}

@@ -1,0 +1,95 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+    class="sidenav w-[320px]"
+    fixedInViewport
+  >
+    <nav class="mr-2 mt-[4rem]">
+      <ul class="flex flex-col space-y-1">
+        @for (menu of menuList; let index = $index; track index; ) {
+          @if (menu.type === 'basic') {
+            <!-- Basic -->
+            <li>
+              <a
+                [routerLink]="menu.link ?? ''"
+                [queryParams]="menu.navigationExtras ?? {}"
+                [routerLinkActive]="'active-link'"
+                class="flex items-center font-lilita_one justify-between p-2 space-x-2 font-normal rounded-r hover:text-white hover:bg-primary"
+              >
+                <div class="flex items-center space-x-2">
+                  <mat-icon [svgIcon]="menu.icon ?? ''"></mat-icon>
+                  <span>{{ menu.title }}</span>
+                </div>
+              </a>
+            </li>
+          }
+          <!-- Collapsable -->
+          @if (menu.type === 'collapsable') {
+            <li>
+              <a
+                href="javascript:void(0);"
+                (click)="toggleSubMeu(index)"
+                class="flex items-center justify-between p-2 space-x-2 font-normal text-white rounded-r hover:bg-primary text-sm"
+              >
+                <div class="flex items-center space-x-2">
+                  <mat-icon [svgIcon]="menu.icon ?? ''"></mat-icon>
+                  <span>{{ menu.title }}</span>
+                </div>
+                <mat-icon>expand_more</mat-icon>
+              </a>
+            </li>
+
+            <!-- Submenu -->
+            @if (menu.children?.length) {
+              <ul [ngClass]="{ hidden: !(index === openedSubmenu()) }">
+                @for (submenu of menu.children; let subIndex = $index; track subIndex) {
+                  <li>
+                    <a
+                      [routerLink]="submenu.link ?? ''"
+                      [queryParams]="submenu.navigationExtras?.queryParams"
+                      [routerLinkActive]="'active-link'"
+                      class="flex items-center justify-between p-2 pl-8 space-x-2 font-normal text-white rounded-r hover:bg-primary text-sm"
+                    >
+                      <div class="flex items-center space-x-2">
+                        <mat-icon [svgIcon]="submenu.icon ?? ''"></mat-icon>
+                        <span>{{ submenu.title }}</span>
+                      </div>
+                    </a>
+                  </li>
+                }
+              </ul>
+            }
+          }
+
+          <!-- Divider -->
+          @if (menu.type === 'divider') {
+            <li>
+              <hr />
+            </li>
+          }
+
+          <!-- Group -->
+          @if (menu.type === 'group') {
+            <li class="text-xs font-semibold pl-2 text-gray-300">
+              {{ menu.title | uppercase }}
+            </li>
+          }
+        }
+      </ul>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="flex min-h-full ml-4 flex-col justify-between">
+      <div class="bg-white w-full p-4 mx-auto flex-grow">
+        <router-outlet />
+      </div>
+      <div class="flex p-2 items-center text-sm justify-center text-sidebar font-light">
+        <span class="mr-2 hover:underline"><a href="#">Terms and conditions</a></span>
+        <span class="ml-2 hover:underline"><a href="#">Privacy policy</a></span>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

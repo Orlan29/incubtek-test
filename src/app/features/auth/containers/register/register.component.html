@@ -1,0 +1,69 @@
+<div class="w-[420px] ml-10 h-full relative p-8">
+  <button
+    [routerLink]="['/auth', 'login']"
+    class="absolute top-11 -left-[4rem] flex items-center justify-center hover:bg-primary hover:text-white bg-white h-12 w-12 rounded-full">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h1 class="text-title-2xl my-4">Incription</h1>
+  <p class="text-gray-500 py-2">Renseigner vos données pour vous inscrire</p>
+  <form [formGroup]="registerForm" class="my-5">
+    @if (errorMessage) {
+      <core-notification type="warn" [message]="errorMessage" />
+    }
+
+    <mp-form-field>
+      <label mp-label for="username">Nom & prénoms</label>
+      <input
+        mp-input
+        class="form-input peer"
+        name="username"
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="Entrer votre nom et prénoms">
+      <mp-icon class="peer-focus:text-primary peer-focus:invalid:text-warn peer-invalid:text-warn">
+        <mat-icon>person</mat-icon>
+      </mp-icon>
+      <mp-form-error>{{ getFormControlErrorText(usernameControl) }}</mp-form-error>
+    </mp-form-field>
+
+    <mp-form-field>
+      <label mp-label for="email">E-mail</label>
+      <input
+        mp-input
+        class="form-input peer"
+        name="email"
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Entrer votre e-mail">
+      <mp-icon class="peer-focus:text-primary peer-focus:invalid:text-warn peer-invalid:text-warn">
+        <mat-icon>mail</mat-icon>
+      </mp-icon>
+      <mp-form-error>{{ getFormControlErrorText(emailControl) }}</mp-form-error>
+    </mp-form-field>
+
+    <mp-form-field>
+      <label mp-label for="password">Mot de passe</label>
+      <input
+        mp-input
+        class="form-input peer"
+        name="password"
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Entrer votre mot de passe">
+      <mp-icon class="peer-focus:text-primary peer-focus:invalid:text-warn peer-invalid:text-warn">
+        <mat-icon>password</mat-icon>
+      </mp-icon>
+      <mp-form-error>{{ getFormControlErrorText(passwordControl) }}</mp-form-error>
+    </mp-form-field>
+    <button
+      raised-button
+      [disabled]="registerForm.invalid"
+      [isLoading]="registerForm.disabled"
+      (click)="onRegister()"
+      class="w-full my-4"
+    >Se connecter</button>
+  </form>
+</div>

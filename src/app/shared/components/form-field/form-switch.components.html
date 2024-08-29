@@ -1,0 +1,16 @@
+<label for="toggleTwo" class="flex font-rale items-center cursor-pointer justify-between" [ngClass]="disabled ? 'switch--disabled' : ''">
+  <span  class="peer-disabled:text-gray-300">{{ label }}</span>
+  <div class="relative">
+    <input
+      type="checkbox"
+      id="toggleTwo"
+      class="peer sr-only"
+      [(ngModel)]="isOn"
+      (ngModelChange)="onSwitch($event)"
+      [checked]="isOn"
+      [disabled]="disabled"
+    />
+    <div class="block h-8 border-2 ring-0 peer-disabled:bg-gray-100 peer-checked:bg-lightprimary peer-focus:ring-2 peer-focus:ring-primary rounded-full bg-gray-3 peer-checked:border-white w-14"></div>
+    <div class="box-ring peer-checked:peer-disabled:bg-gray-400 absolute w-6 h-6 transition border bg-white rounded-full dot left-1 top-1 peer-checked:translate-x-full peer-checked:bg-primary"></div>
+  </div>
+</label>

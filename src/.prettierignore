@@ -1,0 +1,6 @@
+/dist
+/coverage
+/scripts
+/manifests
+/libs/api
+.angular

@@ -1,0 +1,80 @@
+<div class="shadow-lg">
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    <!-- Select -->
+
+    <!-- Id Column -->
+    @for(col of columns; track col.prop) {
+    <ng-container [matColumnDef]="col.prop">
+      <th
+        class="font-rale"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header="{{ col.sortable }}"
+      >
+        <span class="font-bold">{{ col.name }}</span>
+      </th>
+      <td class="font-rale" mat-cell *matCellDef="let row">
+        @switch(col.type) { @case('string') {
+        {{ row[col.prop] }}
+        } @case('date') {
+        {{ row[col.prop] | date : 'dd/MM/yyyy' }}
+        } @case('number') {
+        {{ row[col.prop] | number }}
+        }@case('currency'){
+        {{ row[col.prop] | currency : 'EUR' }}
+        }@case('htmlContent'){
+          <div
+            [class]="col?.classes ? col?.classes(row) : null"
+            [innerHtml]="col?.handleHtmlContent ? col?.handleHtmlContent(row) : null">
+          </div>
+        } @case('customDisplay') {
+        {{ col?.handleCustomDisplay ? col?.handleCustomDisplay(row) : null }}
+        } @default() {
+        {{ row[col.prop] }}
+        }}
+      </td>
+    </ng-container>
+    }
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        @if(actionTemplate) {
+        <ng-container
+          *ngTemplateOutlet="actionTemplate; context: { $implicit: row }"
+        ></ng-container>
+        }
+      </td>
+    </ng-container>
+
+    <!--  -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [ngClass]="{
+        'hover:cursor-pointer hover:bg-gray-50': config.rowClickable,
+        'bg-gray-100': rowSelected.isSelected(row)
+      }"
+      (click)="
+        config.rowClickable ? handleRowClick(row) : $event.preventDefault()
+      "
+    ></tr>
+  </table>
+
+  <!-- loading -->
+  @if (loading) {
+  <mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+  }
+
+  <mat-paginator
+    #paginator
+    [length]="dataSource.data.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+</div>

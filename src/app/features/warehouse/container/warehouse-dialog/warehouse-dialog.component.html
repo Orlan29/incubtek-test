@@ -1,0 +1,51 @@
+<div class="p-4">
+  <h2 class="text-title">{{ data.title }}</h2>
+  <form [formGroup]="warehouseForm" class="space-y-3">
+    <mp-form-field>
+      <label mp-label for="label">Libélé</label>
+      <input
+        mp-input
+        class="form-input peer"
+        formControlName="label"
+        type="text"
+        id="label"
+        placeholder="Entrer le nom de l'entrepôt">
+      <mp-form-error>{{ getFormControlErrorText(labelControl) }}</mp-form-error>
+    </mp-form-field>
+
+    <mp-form-field>
+      <label mp-label for="surface">Superficie (m²)</label>
+      <input
+        mp-input
+        class="form-input peer"
+        formControlName="surface"
+        type="text"
+        id="surface"
+        placeholder="Entrer sa superficie">
+      <mp-form-error>{{ getFormControlErrorText(surfaceControl) }}</mp-form-error>
+    </mp-form-field>
+
+    <mp-form-field>
+      <label mp-label for="location">Lieu</label>
+      <input
+        mp-input
+        class="form-input peer"
+        formControlName="location"
+        type="text"
+        id="location"
+        placeholder="Entrer son lieu">
+      <mp-form-error>{{ getFormControlErrorText(locationControl) }}</mp-form-error>
+    </mp-form-field>
+
+    <div class="flex mt-4 items-center space-x-2">
+      <button mat-dialog-close class="w-full" outlined-button color="warn">Annuler</button>
+      <button
+        (click)="save()"
+        [isLoading]="warehouseForm.disabled"
+        [disabled]="warehouseForm.invalid"
+        class="w-full" raised-button>
+        {{ data.type === 'add' ? 'Enregistrer' : 'Modifier' }}
+      </button>
+    </div>
+  </form>
+</div>

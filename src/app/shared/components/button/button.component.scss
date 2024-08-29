@@ -1,0 +1,173 @@
+@import "../../../../assets/scss/mixins";
+
+@mixin box-shadow($color, $opacity: 0.40) {
+  box-shadow: 0 2px 4px 0 rgba($color, $opacity);
+}
+
+@mixin button-hover($color) {
+  background-color: rgba($color);
+  @apply text-white;
+}
+
+.mp-button-base {
+  @apply px-3 py-2 cursor-pointer;
+  transition: all;
+  transition-duration: 0.3s;
+}
+
+.mp-raised-button-container.button--rounded,
+.mp-outlined-button-container.button--rounded,
+.mp-filled-button-container.button--rounded {
+  @apply w-[40px] h-[40px] text-center flex items-center justify-center rounded-full #{'!important'};
+}
+
+.mp-raised-button-container,
+.mp-outlined-button-container,
+.mp-filled-button-container {
+  @apply border-[2px] font-semibold #{'!important'};
+}
+
+.mp-button-base.button--disabled {
+  @apply cursor-not-allowed #{'!important'};
+}
+
+// Filled button
+.mp-filled-button-container {
+  @include border-radius();
+
+  &.button-primary {
+    @apply bg-primary text-white border-primary;
+
+    &:hover {
+      @include button-shadow-focus(var(--mp-primary-color-rgb));
+    }
+  }
+
+  &.button-accent {
+    @apply bg-accent text-white border-accent;
+
+    &:hover {
+      @include button-shadow-focus(var(--mp-accent-color-rgb));
+    }
+  }
+
+  &.button-warn {
+    @apply bg-warn text-white border-warn;
+
+    &:hover {
+      @include button-shadow-focus(var(--mp-warn-color-rgb));
+    }
+  }
+
+  &.button--disabled, &.button--loading {
+    @apply bg-gray-300 text-gray-400 border-gray-300 #{'!important'};
+
+    &:hover {
+      box-shadow: none !important;
+    }
+  }
+}
+
+// Outlined button
+.mp-outlined-button-container {
+  @include border-radius();
+
+  &.button-primary {
+    @apply border-primary text-primary bg-white;
+
+    &:hover {
+      @include button-hover(var(--mp-primary-color-rgb));
+      @include button-shadow-focus(var(--mp-primary-color-rgb));
+    }
+  }
+
+  &.button-accent {
+    @apply border-accent text-accent bg-white;
+
+    &:hover {
+      @include button-hover(var(--mp-accent-color-rgb));
+      @include button-shadow-focus(var(--mp-accent-color-rgb));
+    }
+  }
+
+  &.button-warn {
+    @apply border-warn text-warn bg-white;
+
+    &:hover {
+      @include button-hover(var(--mp-warn-color-rgb));
+      @include button-shadow-focus(var(--mp-warn-color-rgb));
+    }
+  }
+
+  // Disabled state
+  &.button--disabled, &.button--loading {
+    @apply bg-gray-100 text-gray-400 border-gray-300 #{'!important'};
+
+    &:hover {
+      @apply bg-gray-100 text-gray-400 border-gray-300 #{'!important'};
+      box-shadow: none !important;
+    }
+  }
+}
+
+// Raised button
+.mp-raised-button-container {
+  @apply font-normal;
+  @include border-radius();
+
+  &.button-primary {
+    @apply text-white bg-primary border-primary;
+    @include box-shadow(var(--mp-primary-color-rgb));
+
+    &:hover {
+      @include button-shadow-focus(var(--mp-primary-color-rgb));
+    }
+  }
+
+  &.button-accent {
+    @apply text-white bg-accent border-accent;
+    @include box-shadow(var(--mp-accent-color-rgb));
+
+    &:hover {
+      @include button-shadow-focus(var(--mp-accent-color-rgb));
+    }
+  }
+
+  &.button-warn {
+    @apply text-white bg-warn border-warn;
+    @include box-shadow(var(--mp-warn-color-rgb));
+
+    &:hover {
+      @include button-shadow-focus(var(--mp-warn-color-rgb));
+    }
+  }
+
+  // Disabled state
+  &.button--disabled, &.button--loading {
+    @apply bg-gray-300 text-gray-400 border-gray-300 #{'!important'};
+    box-shadow: none !important;
+
+    &:hover {
+      @apply bg-gray-300 text-gray-400 border-gray-300 #{'!important'};
+      box-shadow: none !important;
+    }
+  }
+}
+
+// Text button
+.mp-text-button-container {
+  @apply font-normal hover:underline;
+
+  &.button-primary {
+    @apply text-primary;
+  }
+
+  &.button-accent {
+    @apply text-accent;
+  }
+
+  &.button-warn {
+    @apply text-warn;
+  }
+}
+

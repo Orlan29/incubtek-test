@@ -1,0 +1,54 @@
+<div class="w-[420px] ml-10 h-full relative p-8">
+  <h1 class="text-title-2xl my-4">Connexion</h1>
+  <p class="text-gray-500 py-2">Bienvenue, utiliser vos identifiants pour vous connectez à votre espace.</p>
+  <form [formGroup]="loginForm" class="my-5">
+    @if (errorMessage) {
+      <core-notification type="warn" [message]="errorMessage" />
+    }
+
+    <mp-form-field>
+      <label mp-label for="email">E-mail</label>
+      <input
+        mp-input
+        class="form-input peer"
+        formControlName="email"
+        type="email"
+        id="email"
+        placeholder="Entrer votre e-mail">
+      <mp-icon class="peer-focus:text-primary peer-focus:invalid:text-warn peer-invalid:text-warn">
+        <mat-icon>mail</mat-icon>
+      </mp-icon>
+      <mp-form-error>{{ getFormControlErrorText(emailControl) }}</mp-form-error>
+    </mp-form-field>
+
+    <mp-form-field>
+      <label mp-label for="password">Mot de passe</label>
+      <input
+        mp-input
+        formControlName="password"
+        class="form-input peer"
+        [type]="passwordVisible ? 'text' : 'password' "
+        id="password"
+        placeholder="Entrer un mot de passe">
+      <mp-icon>
+          <span class="hover:text-primary inline-block mt-3 p-px cursor-pointer" (click)="passwordVisible = !passwordVisible">
+            <mat-icon>{{ passwordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </span>
+      </mp-icon>
+      <mp-form-error>{{ getFormControlErrorText(passwordControl) }}</mp-form-error>
+    </mp-form-field>
+
+    <button
+      (click)="login()"
+      [isLoading]="loginForm.disabled"
+      [disabled]="loginForm.invalid"
+      raised-button color="primary"
+      class="w-full my-4"
+    >Se connecter</button>
+
+    <div class="text-sm text-right">
+      Vous n'avez pas de compte? <a [routerLink]="['/auth', 'register']" class="font-bold text-primary underline hover:no-underline">Inscrivez-vous</a>
+    </div>
+  </form>
+  <div class="absolute bottom-4 text-sm">Designed by <a href="#" target="_blank" class="underline font-bold hover:no-underline">Brice Bouadou</a></div>
+</div>

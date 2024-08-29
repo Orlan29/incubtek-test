@@ -1,0 +1,52 @@
+@import "../../../../assets/scss/mixins";
+
+mp-form-field {
+  label {
+    @apply block text-left font-rale;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select,
+  .form-multiselect{
+    @apply mt-1 block w-full font-rale text-left rounded-[0.6rem] py-2.5 border-2 text-gray-500 px-3 border-gray-300 focus:border-primary focus:ring-0;
+    &:focus {
+      @include button-shadow-focus(var(--mp-primary-color-rgb));
+      @apply text-black;
+    }
+    &.ng-invalid.ng-touched.ng-invalid {
+      @apply focus:border-warn border-warn #{'!important'};
+      &:focus {
+        @include button-shadow-focus(var(--mp-warn-color-rgb));
+      }
+    }
+  }
+
+  // disabled appearance of the field
+  [mp-input] {
+    &:valid:focus {
+      & + mp-icon {
+        @apply text-primary;
+      }
+    }
+    &:invalid:focus, &:focus:invalid.ng-touched {
+      & + mp-icon {
+        @apply text-warn;
+      }
+    }
+    &:disabled {
+      @apply bg-gray-200 cursor-not-allowed;
+    }
+    &:has(~ mp-icon) {
+      @apply pr-10 #{'!important'};
+    }
+  }
+
+  mp-icon {
+    @apply text-gray-400;
+  }
+
+  .form-checkbox {
+    @apply appearance-none p-px font-rale
+  }
+}
